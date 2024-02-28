@@ -82,6 +82,20 @@ public class CategoryServiceImpl implements CategoryService {
                 .build();
 
         categoryMapper.update(category);
+    }
 
+
+    /**
+     * 修改分类
+     * @param categoryDTO
+     */
+    public void update(CategoryDTO categoryDTO) {
+        Category category = Category.builder()
+                .id(categoryDTO.getId())
+                .name(categoryDTO.getName())
+                .sort(categoryDTO.getSort())
+                .build();
+
+        categoryMapper.update(category);
     }
 }
