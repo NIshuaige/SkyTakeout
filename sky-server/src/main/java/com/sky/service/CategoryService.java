@@ -1,0 +1,37 @@
+/**
+ * @Author：乐
+ * @Package：com.sky.service
+ * @Project：sky-take-out
+ * @name：CategoryService
+ * @Date：2024/2/28 0028  12:50
+ * @Filename：CategoryService
+ */
+package com.sky.service;
+
+import com.sky.dto.CategoryDTO;
+import com.sky.dto.CategoryPageQueryDTO;
+import com.sky.entity.Category;
+import com.sky.result.PageResult;
+
+public interface CategoryService {
+
+    /**
+     * 新增分类
+     * @param categoryDTO
+     */
+    void save(CategoryDTO categoryDTO);
+
+    /**
+     * 分类分页查询
+     * @param categoryPageQueryDTO
+     * @return
+     */
+    PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    /**
+     * 启用和禁用分类
+     * @param status
+     * @param id
+     */
+    void startOrStop(Integer status, Long id);
+}
