@@ -54,5 +54,5 @@ public interface CategoryService {
      * 根据id删除分类
      * @param id
      */
-    void delete(Integer id);
+    void delete(Long id);
 }

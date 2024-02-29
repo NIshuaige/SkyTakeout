@@ -10,17 +10,20 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.CategoryMapper;
+import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,6 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private DishMapper dishMapper;
+
+    @Autowired
+    private SetmealMapper setmealMapper;
 
 
     /**
@@ -43,10 +52,11 @@ public class CategoryServiceImpl implements CategoryService {
 
         //设置状态，创建和修改时间，创建者和修改者
         category.setStatus(0);
-        category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
-        category.setCreateUser(BaseContext.getCurrentId());
-        category.setUpdateUser(BaseContext.getCurrentId());
+        //公共字段自动填充
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setCreateUser(BaseContext.getCurrentId());
+//        category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.insert(category);
     }
@@ -96,6 +106,11 @@ public class CategoryServiceImpl implements CategoryService {
                 .sort(categoryDTO.getSort())
                 .build();
 
+        //公共字段自动填充
+        //设置修改人和时间
+//        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setUpdateTime(LocalDateTime.now());
+
         categoryMapper.update(category);
     }
 
@@ -114,7 +129,21 @@ public class CategoryServiceImpl implements CategoryService {
      * 根据id删除分类
      * @param id
      */
-    public void delete(Integer id) {
+    public void delete(Long id) {
+        //查询当前分类是否关联了菜品，如果关联了就抛出业务异常
+        Integer count = dishMapper.countByCategoryId(id);
+        if(count > 0){
+            //当前分类下有菜品，不能删除
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
+        }
+
+        //查询当前分类是否关联了套餐，如果关联了就抛出业务异常
+        count = setmealMapper.countByCategoryId(id);
+        if(count > 0){
+            //当前分类下有菜品，不能删除
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
+        }
+
         categoryMapper.delete(id);
     }
 }
