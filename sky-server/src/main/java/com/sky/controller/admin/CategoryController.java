@@ -96,4 +96,17 @@ public class CategoryController {
         List<Category> list= categoryService.list(type);
         return Result.success(list);
     }
+
+
+    /**
+     * 根据id删除分类
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation(value = "根据id删除分类")
+    public Result deleteById(Integer id){
+        categoryService.delete(id);
+        return Result.success();
+    }
 }

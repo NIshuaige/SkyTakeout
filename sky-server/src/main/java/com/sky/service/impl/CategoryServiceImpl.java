@@ -110,4 +110,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
+    /**
+     * 根据id删除分类
+     * @param id
+     */
+    public void delete(Integer id) {
+        categoryMapper.delete(id);
+    }
 }

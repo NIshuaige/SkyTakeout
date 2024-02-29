@@ -49,4 +49,10 @@ public interface CategoryService {
      * @return
      */
     List<Category> list(String type);
+
+    /**
+     * 根据id删除分类
+     * @param id
+     */
+    void delete(Integer id);
 }
