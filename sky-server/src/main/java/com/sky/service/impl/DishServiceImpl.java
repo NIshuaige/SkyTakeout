@@ -126,8 +126,21 @@ public class DishServiceImpl implements DishService {
     public void update(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO,dish);
+        //修改菜品数据
+        dishMapper.update(dish);
 
-//        dishMapper.update(dish);
+        //修改菜品关联的口味数据--先将关联的口味删除在进行添加
+        //删除口味
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
+
+        //重新插入口味数据
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if (flavors != null && flavors.size() > 0){
+            for (DishFlavor flavor : flavors) {
+                flavor.setDishId(dishDTO.getId());
+            }
+        }
+        dishFlavorMapper.insertBatch(flavors);
 
     }
 

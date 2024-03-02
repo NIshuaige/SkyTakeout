@@ -14,4 +14,15 @@
             (#{df.dishId},#{df.name},#{df.value})
         </foreach>
     </insert>
+    <update id="update">
+        update dish_flavor
+        <set>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="value != null"></if>
+                value = #{value}
+        </set>
+        where dish_id = #{dishId}
+    </update>
 </mapper>
