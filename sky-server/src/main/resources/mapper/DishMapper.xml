@@ -27,7 +27,13 @@
                 description = #{description},
             </if>
             <if test="status != null">
-                status = #{status}
+                status = #{status},
+            </if>
+            <if test="updateUser != null">
+                update_User = #{updateUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime}
             </if>
 
         </set>
