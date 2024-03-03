@@ -10,6 +10,7 @@ package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -49,12 +50,12 @@ public class DishController {
     }
 
     /**
-     * 菜品分类查询
+     * 菜品分页查询
      * @param dishPageQueryDTO
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation(value = "菜品分类查询")
+    @ApiOperation(value = "菜品分页查询")
     public Result<PageResult> pageQuery(DishPageQueryDTO dishPageQueryDTO){
         log.info("菜品分页查询：{}",dishPageQueryDTO);
         PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
@@ -117,5 +118,20 @@ public class DishController {
         dishService.startOrStop(status,id);
 
         return Result.success();
+    }
+
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<Dish>> list(Long categoryId){
+        log.info("根据分类id查询菜品：{}",categoryId);
+        List<Dish> dishVOList = dishService.list(categoryId);
+
+        return Result.success(dishVOList);
     }
 }
