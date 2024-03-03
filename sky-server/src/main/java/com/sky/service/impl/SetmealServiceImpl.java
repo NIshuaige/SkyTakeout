@@ -144,4 +144,19 @@ public class SetmealServiceImpl implements SetmealService {
         setmealDishMapper.insertBatch(setmealDishes);
 
     }
+
+
+    /**
+     * 起售停售套餐
+     * @param status
+     */
+    public void startOrStop(Integer status,Long id) {
+        Setmeal setmeal = Setmeal.builder()
+                .id(id)
+                .status(status)
+                .build();
+
+        setmealMapper.update(setmeal);
+
+    }
 }
