@@ -20,20 +20,21 @@
             <if test="price != null">
                 price = #{price},
             </if>
-            <if test="status">
-                status = #{status},
-            </if>
-            <if test="description">
+
+            <if test="description != null">
                 description = #{description},
             </if>
-            <if test="image">
+            <if test="image != null">
                 image = #{image},
             </if>
-            <if test="updateTime">
+            <if test="updateTime != null">
                 update_time = #{updateTime},
             </if>
-            <if test="updateUser">
-                update_user = #{updateUser}
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+            <if test="status != null">
+                status = #{status}
             </if>
         </set>
         where id = #{id}
