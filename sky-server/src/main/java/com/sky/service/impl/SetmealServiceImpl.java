@@ -75,4 +75,44 @@ public class SetmealServiceImpl implements SetmealService {
 
         return new PageResult(page.getTotal(),page.getResult());
     }
+
+
+    /**
+     * 根据id查询套餐
+     * @param id
+     * @return
+     */
+    public SetmealVO getById(Long id) {
+        SetmealVO setmealVO = new SetmealVO();
+        //查询套餐数据
+        Setmeal setmeal= setmealMapper.getById(id);
+        //查询套餐关联的菜品数据
+        List<SetmealDish>  setmealDishes= setmealDishMapper.getBySetmealId(id);
+
+        BeanUtils.copyProperties(setmeal,setmealVO);
+        setmealVO.setSetmealDishes(setmealDishes);
+
+        return setmealVO;
+    }
+
+    /**
+     * 批量删除套餐及其关联的菜品
+     * @param ids
+     */
+    @Transactional
+    public void deleteBatch(List<Long> ids) {
+        //取出要删除的套餐id
+        for (Long id : ids) {
+            //判断该套餐是否为停售--起售中的菜品不能删除
+//            setmealMapper
+
+
+            //删除套餐
+           setmealMapper.delete(id);
+
+            //删除套餐关联的菜品
+            setmealDishMapper.delete(id);
+        }
+
+    }
 }
