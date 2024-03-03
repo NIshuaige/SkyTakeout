@@ -52,4 +52,11 @@ public interface SetmealMapper {
      */
     @Select("select * from setmeal where id=#{id}")
     Setmeal getById(Long id);
+
+    /**
+     * 根据参数动态修改套餐
+     * @param setmeal
+     */
+    @AutoFill(OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }
