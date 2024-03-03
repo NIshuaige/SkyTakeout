@@ -10,11 +10,13 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
@@ -104,14 +106,17 @@ public class SetmealServiceImpl implements SetmealService {
         //取出要删除的套餐id
         for (Long id : ids) {
             //判断该套餐是否为停售--起售中的菜品不能删除
-//            setmealMapper
+            Setmeal setmeal = setmealMapper.getById(id);
+            if (setmeal.getStatus() == StatusConstant.DISABLE){
+                //套餐为停售可删
+                //删除套餐
+                setmealMapper.delete(id);
+                //删除套餐关联的菜品
+                setmealDishMapper.delete(id);
+            }else if (setmeal.getStatus() == StatusConstant.ENABLE){
+                throw new  DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+            }
 
-
-            //删除套餐
-           setmealMapper.delete(id);
-
-            //删除套餐关联的菜品
-            setmealDishMapper.delete(id);
         }
 
     }
