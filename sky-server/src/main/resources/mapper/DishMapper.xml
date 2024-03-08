@@ -30,12 +30,11 @@
                 status = #{status},
             </if>
             <if test="updateUser != null">
-                update_User = #{updateUser},
+                update_user = #{updateUser},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime}
             </if>
-
         </set>
         where id = #{id}
     </update>

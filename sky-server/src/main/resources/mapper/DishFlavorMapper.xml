@@ -18,7 +18,7 @@
         update dish_flavor
         <set>
             <if test="name != null">
-                name = #{name}
+                name = #{name},
             </if>
             <if test="value != null"></if>
                 value = #{value}
