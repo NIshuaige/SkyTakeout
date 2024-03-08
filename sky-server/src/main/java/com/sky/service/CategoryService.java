@@ -48,7 +48,7 @@ public interface CategoryService {
      * @param type
      * @return
      */
-    List<Category> list(String type);
+    List<Category> list(Integer type);
 
     /**
      * 根据id删除分类

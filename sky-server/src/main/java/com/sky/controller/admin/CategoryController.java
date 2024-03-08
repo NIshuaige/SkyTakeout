@@ -8,7 +8,6 @@
  */
 package com.sky.controller.admin;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
@@ -92,7 +91,7 @@ public class CategoryController {
      */
     @GetMapping("/list")
     @ApiOperation(value = "根据类型查询分类")
-    public Result<List<Category>> getByType(String type){
+    public Result<List<Category>> getByType(Integer type){
         List<Category> list= categoryService.list(type);
         return Result.success(list);
     }
