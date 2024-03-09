@@ -36,5 +36,5 @@ public interface ShoppingCartService {
      * 删除购物车中一个商品
      * @param shoppingCartDTO
      */
-//    void deleteShoppingCart(ShoppingCartDTO shoppingCartDTO);
+    void deleteShoppingCart(ShoppingCartDTO shoppingCartDTO);
 }
