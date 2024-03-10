@@ -43,4 +43,10 @@ public interface OrderService {
      * @param id
      */
     void cancel(Long id);
+
+    /**
+     * 在来一单
+     * @param id
+     */
+    void repetition(Long id);
 }

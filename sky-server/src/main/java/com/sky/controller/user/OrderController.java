@@ -53,6 +53,7 @@ public class OrderController {
     @GetMapping("/historyOrders")
     @ApiOperation("查看历史订单")
     private Result<PageResult> historyOrders(int page,int pageSize ,Integer status){
+        log.info("查看历史订单：{}{}{}",page,pageSize,status);
         PageResult pageResult= orderService.pageQuery(page,pageSize,status);
 
         return Result.success(pageResult);
@@ -82,7 +83,21 @@ public class OrderController {
     @PutMapping("/cancel/{id}")
     @ApiOperation("取消订单")
     private Result cancel(@PathVariable Long id){
+        log.info("取消订单：{}",id);
         orderService.cancel(id);
+        return Result.success();
+    }
+
+
+    /**
+     * 在来一单
+     * @param id
+     * @return
+     */
+    @PostMapping("/repetition/{id}")
+    @ApiOperation("在来一单")
+    private Result repetition(@PathVariable Long id){
+        orderService.repetition(id);
         return Result.success();
     }
 }
