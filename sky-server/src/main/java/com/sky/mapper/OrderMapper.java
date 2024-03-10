@@ -35,4 +35,11 @@ public interface OrderMapper {
      * @return
      */
     Orders getDetail(OrdersDTO ordersDTO);
+
+
+    /**
+     * 动态修改订单信息
+     * @param orders
+     */
+    void update(Orders orders);
 }

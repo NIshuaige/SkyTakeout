@@ -20,6 +20,7 @@ import com.sky.entity.OrderDetail;
 import com.sky.entity.Orders;
 import com.sky.entity.ShoppingCart;
 import com.sky.exception.AddressBookBusinessException;
+import com.sky.exception.OrderBusinessException;
 import com.sky.exception.ShoppingCartBusinessException;
 import com.sky.mapper.AddressBookMapper;
 import com.sky.mapper.OrderDetailMapper;
@@ -165,5 +166,45 @@ public class OrderServiceImpl implements OrderService {
 
 
         return orderVO;
+    }
+
+
+    @Override
+    public void cancel(Long id) {
+        OrdersDTO ordersDTO = new OrdersDTO();
+        ordersDTO.setUserId(BaseContext.getCurrentId());
+        ordersDTO.setId(id);
+        Orders detail = orderMapper.getDetail(ordersDTO);
+        Integer status = detail.getStatus();
+
+        //订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+        //- 待支付和待接单状态下，用户可直接取消订单
+        if (status == 1 || status ==2){
+            // 更新订单状态、取消原因、取消时间
+            Orders orders = Orders.builder()
+                    .status(6)
+                    .userId(BaseContext.getCurrentId())
+                    .id(id)
+                    .cancelReason("用户取消")
+                    .cancelTime(LocalDateTime.now())
+                    .build();
+
+            orderMapper.update(orders);
+
+
+            //- 如果在待接单状态下取消订单，需要给用户退款
+        }
+        if (status > 2){
+            //- 商家已接单状态下，用户取消订单需电话沟通商家
+            //- 派送中状态下，用户取消订单需电话沟通商家
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+
+
+
+
+
+
     }
 }
