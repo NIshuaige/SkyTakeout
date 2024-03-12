@@ -70,4 +70,10 @@ public interface OrderService {
      * @param ordersConfirmDTO
      */
     void confirm(OrdersConfirmDTO ordersConfirmDTO);
+
+    /**
+     * 派送订单
+     * @param id
+     */
+    void delivery(Long id);
 }

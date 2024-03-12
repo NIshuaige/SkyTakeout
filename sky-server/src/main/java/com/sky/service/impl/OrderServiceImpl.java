@@ -328,4 +328,18 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderMapper.update(orders);
     }
+
+
+    /**
+     * 派送订单
+     * @param id
+     */
+    public void delivery(Long id) {
+        Orders orders = Orders.builder()
+                .id(id)
+                .status(Orders.DELIVERY_IN_PROGRESS)
+                .build();
+
+        orderMapper.update(orders);
+    }
 }
