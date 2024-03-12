@@ -13,6 +13,7 @@ import com.sky.dto.OrdersDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface OrderMapper {
@@ -42,4 +43,25 @@ public interface OrderMapper {
      * @param orders
      */
     void update(Orders orders);
+
+    /**
+     * 待接单数量
+     * @return
+     */
+    @Select("select  count(*) from orders where status = 2")
+    Integer getToBeConfirmed();
+
+    /**
+     * 待派送数量
+     * @return
+     */
+    @Select("select  count(*) from orders where status = 3")
+    Integer getConfirmed();
+
+    /**
+     * 派送中数量
+     * @return
+     */
+    @Select("select count(*) from orders where status = 4")
+    Integer getDeliveryInProgress();
 }

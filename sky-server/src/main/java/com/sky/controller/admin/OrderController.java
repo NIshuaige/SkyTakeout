@@ -1,0 +1,70 @@
+/**
+ * @Author：乐
+ * @Package：com.sky.controller.admin
+ * @Project：sky-take-out
+ * @name：OrderController
+ * @Date：2024/3/12 0012  13:56
+ * @Filename：OrderController
+ */
+package com.sky.controller.admin;
+
+
+import com.sky.result.PageResult;
+import com.sky.result.Result;
+import com.sky.service.OrderService;
+import com.sky.vo.OrderStatisticsVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController("adminOrderController")
+@RequestMapping("/admin/order")
+@Api(tags = "商家端订单管理相关接口")
+@Slf4j
+public class OrderController {
+    @Autowired
+    private OrderService orderService;
+
+
+    /**
+     * 订单搜索
+     * @param
+     * @return
+     */
+    @GetMapping("/conditionSearch")
+    @ApiOperation("订单搜索")
+    private Result<PageResult> conditionSearch(int page,int pageSize ,Integer status){
+        log.info("订单搜索：");
+        PageResult pageResult = orderService.conditionSearch(page, pageSize ,status);
+
+        return Result.success(pageResult);
+    }
+
+    /**
+     * private Result<PageResult> conditionSearch(int page,int pageSize ,Integer status){
+     *         log.info("订单搜索：{}{}{}",page,pageSize,status);
+     *         PageResult pageResult = orderService.pageQuery(page, pageSize, status);
+     *
+     *         return Result.success(pageResult);
+     *     }
+     */
+
+
+    /**
+     * 各个状态的订单数
+     * @return
+     */
+    @GetMapping("/statistics")
+    @ApiOperation("各个状态的订单数")
+    private Result<OrderStatisticsVO> statistics(){
+        log.info("各个状态的订单数：");
+        OrderStatisticsVO orderStatisticsVO= orderService.statistics();
+
+        return Result.success(orderStatisticsVO);
+    }
+
+}
