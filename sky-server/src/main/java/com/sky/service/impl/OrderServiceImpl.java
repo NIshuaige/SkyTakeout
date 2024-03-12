@@ -379,4 +379,27 @@ public class OrderServiceImpl implements OrderService {
         }
 
     }
+
+    /**
+     * 客户端取消订单
+     * @param ordersCancelDTO
+     */
+    public void cancelByAdmin(OrdersCancelDTO ordersCancelDTO) {
+        OrdersDTO ordersDTO = new OrdersDTO();
+        ordersDTO.setId(ordersCancelDTO.getId());
+        //只有订单处于待接单时才能拒单
+        Orders order = orderMapper.getDetail(ordersDTO);
+        Integer status = order.getStatus();
+        if (status == 3){
+            Orders orders = Orders.builder()
+                    .id(ordersCancelDTO.getId())
+                    .status(Orders.CANCELLED)
+                    .cancelReason(ordersCancelDTO.getCancelReason())
+                    .cancelTime(LocalDateTime.now())
+                    .build();
+
+            orderMapper.update(orders);
+        }
+
+    }
 }

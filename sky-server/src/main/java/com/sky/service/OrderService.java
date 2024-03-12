@@ -8,6 +8,7 @@
  */
 package com.sky.service;
 
+import com.sky.dto.OrdersCancelDTO;
 import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersRejectionDTO;
 import com.sky.dto.OrdersSubmitDTO;
@@ -89,4 +90,10 @@ public interface OrderService {
      * @param ordersRejectionDTO
      */
     void rejection(OrdersRejectionDTO ordersRejectionDTO);
+
+    /**
+     * 客户端取消订单
+     * @param ordersCancelDTO
+     */
+    void cancelByAdmin(OrdersCancelDTO ordersCancelDTO);
 }

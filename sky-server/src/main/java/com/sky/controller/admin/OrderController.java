@@ -136,9 +136,16 @@ public class OrderController {
     }
 
 
+    /**
+     * 取消订单
+     * @param ordersCancelDTO
+     * @return
+     */
     @PutMapping("/cancel")
     @ApiOperation("取消订单")
     private Result cancel(@RequestBody OrdersCancelDTO ordersCancelDTO){
+        log.info("取消订单：{}",ordersCancelDTO);
+        orderService.cancelByAdmin(ordersCancelDTO);
 
         return Result.success();
     }
