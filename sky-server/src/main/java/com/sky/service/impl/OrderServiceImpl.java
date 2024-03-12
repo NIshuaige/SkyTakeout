@@ -342,4 +342,19 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.update(orders);
     }
+
+
+    /**
+     * 完成订单
+     * @param id
+     */
+    public void complete(Long id) {
+        Orders orders = Orders.builder()
+                .id(id)
+                .status(Orders.COMPLETED)
+                .deliveryTime(LocalDateTime.now())
+                .build();
+
+        orderMapper.update(orders);
+    }
 }
