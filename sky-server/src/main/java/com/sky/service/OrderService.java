@@ -8,6 +8,7 @@
  */
 package com.sky.service;
 
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderStatisticsVO;
@@ -63,4 +64,10 @@ public interface OrderService {
      * @return
      */
     PageResult conditionSearch(int page,int pageSize ,Integer status);
+
+    /**
+     * 接单
+     * @param ordersConfirmDTO
+     */
+    void confirm(OrdersConfirmDTO ordersConfirmDTO);
 }
