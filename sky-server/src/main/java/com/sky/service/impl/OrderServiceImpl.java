@@ -160,9 +160,9 @@ public class OrderServiceImpl implements OrderService {
         ordersDTO.setId(id);
         ordersDTO.setUserId(BaseContext.getCurrentId());
 
-        //查询菜品
+        //查询订单
         Orders orders = orderMapper.getDetail(ordersDTO);
-
+        //查看订单关联的菜品
         List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(id);
 
         OrderVO orderVO = new OrderVO();
