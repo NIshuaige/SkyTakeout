@@ -9,6 +9,7 @@
 package com.sky.service;
 
 import com.sky.dto.OrdersConfirmDTO;
+import com.sky.dto.OrdersRejectionDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderStatisticsVO;
@@ -82,4 +83,10 @@ public interface OrderService {
      * @param id
      */
     void complete(Long id);
+
+    /**
+     * 拒单
+     * @param ordersRejectionDTO
+     */
+    void rejection(OrdersRejectionDTO ordersRejectionDTO);
 }

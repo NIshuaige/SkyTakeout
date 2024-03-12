@@ -9,7 +9,9 @@
 package com.sky.controller.admin;
 
 
+import com.sky.dto.OrdersCancelDTO;
 import com.sky.dto.OrdersConfirmDTO;
+import com.sky.dto.OrdersRejectionDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
@@ -114,6 +116,29 @@ public class OrderController {
     private Result complete(@PathVariable Long id){
         log.info("完成订单{}",id);
         orderService.complete(id);
+
+        return Result.success();
+    }
+
+
+    /**
+     * 拒单
+     * @param ordersRejectionDTO
+     * @return
+     */
+    @PutMapping("/rejection")
+    @ApiOperation("拒单")
+    private Result rejection(@RequestBody OrdersRejectionDTO ordersRejectionDTO){
+        log.info("拒单：{}",ordersRejectionDTO);
+        orderService.rejection(ordersRejectionDTO);
+
+        return Result.success();
+    }
+
+
+    @PutMapping("/cancel")
+    @ApiOperation("取消订单")
+    private Result cancel(@RequestBody OrdersCancelDTO ordersCancelDTO){
 
         return Result.success();
     }

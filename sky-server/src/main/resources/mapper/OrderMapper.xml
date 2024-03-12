@@ -27,7 +27,10 @@
                 delivery_time = #{deliveryTime},
             </if>
             <if test="cancelTime != null">
-                cancel_time = #{cancelTime}
+                cancel_time = #{cancelTime},
+            </if>
+            <if test="rejectionReason != null">
+                rejection_reason = #{rejectionReason}
             </if>
         </set>
         where id = #{id}

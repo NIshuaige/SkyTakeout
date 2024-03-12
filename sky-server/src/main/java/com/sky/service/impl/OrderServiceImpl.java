@@ -12,10 +12,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
-import com.sky.dto.OrdersConfirmDTO;
-import com.sky.dto.OrdersDTO;
-import com.sky.dto.OrdersPageQueryDTO;
-import com.sky.dto.OrdersSubmitDTO;
+import com.sky.dto.*;
 import com.sky.entity.AddressBook;
 import com.sky.entity.OrderDetail;
 import com.sky.entity.Orders;
@@ -356,5 +353,30 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         orderMapper.update(orders);
+    }
+
+
+    /**
+     * 拒单
+     * @param ordersRejectionDTO
+     */
+    public void rejection(OrdersRejectionDTO ordersRejectionDTO) {
+
+        OrdersDTO ordersDTO = new OrdersDTO();
+        ordersDTO.setId(ordersRejectionDTO.getId());
+        //只有订单处于待接单时才能拒单
+        Orders order = orderMapper.getDetail(ordersDTO);
+        Integer status = order.getStatus();
+        if (status == 2){
+            Orders orders = Orders.builder()
+                    .id(ordersRejectionDTO.getId())
+                    .status(Orders.CANCELLED)
+                    .rejectionReason(ordersRejectionDTO.getRejectionReason())
+                    .cancelTime(LocalDateTime.now())
+                    .build();
+
+            orderMapper.update(orders);
+        }
+
     }
 }
