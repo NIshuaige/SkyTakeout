@@ -420,4 +420,27 @@ public class OrderServiceImpl implements OrderService {
         }
 
     }
+
+
+    /**
+     * 用户催单
+     * @param id
+     */
+    public void reminder(Long id) {
+        OrdersDTO ordersDTO = new OrdersDTO();
+        ordersDTO.setId(id);
+        Orders detail = orderMapper.getDetail(ordersDTO);
+        if (detail == null){
+            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        }
+
+        Map<Object, Object> map = new HashMap<>();
+        map.put("type",2);//1为来单提醒   2为用户催单
+        map.put("OrderId",19);
+        map.put("content","订单号：2342342");
+
+        String json = JSON.toJSONString(map);
+        webSocketServer.sendToAllClient(json);
+
+    }
 }
