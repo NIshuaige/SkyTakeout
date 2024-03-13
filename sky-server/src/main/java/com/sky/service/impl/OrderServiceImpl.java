@@ -8,6 +8,7 @@
  */
 package com.sky.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
@@ -29,6 +30,7 @@ import com.sky.service.OrderService;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.websocket.WebSocketServer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,6 +54,8 @@ public class OrderServiceImpl implements OrderService {
     private AddressBookMapper addressBookMapper;
     @Autowired
     private ShoppingCartMapper shoppingCartMapper;
+    @Autowired
+    private WebSocketServer webSocketServer;
 
     /**
      * 用户下单
@@ -109,6 +115,18 @@ public class OrderServiceImpl implements OrderService {
                 .orderAmount(orders.getAmount())
                 .orderNumber(orders.getNumber())
                 .build();
+
+
+        //TODO 通过websocket向客户端浏览器推送消息（支付功能未完成，临时放置）
+        Map<Object, Object> map = new HashMap<>();
+        map.put("type",1);//1为来单提醒   2为用户催单
+        map.put("OrderId",19);
+        map.put("content","订单号：2342342");
+
+        String json = JSON.toJSONString(map);
+        webSocketServer.sendToAllClient(json);
+
+
 
         return orderSubmitVO;
     }
