@@ -73,4 +73,35 @@
             </if>
         </where>
     </select>
+    <select id="getOrders" resultType="com.sky.entity.Orders">
+        select * from orders
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="orderTime != null">
+                and order_time = #{orderTime}
+            </if>
+        </where>
+    </select>
+    <select id="getByMap" resultType="java.lang.Double">
+        select sum(amount) from orders
+        <where>
+            <if test="beginTime != null">
+                and order_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and order_time &lt; #{endTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
 </mapper>
