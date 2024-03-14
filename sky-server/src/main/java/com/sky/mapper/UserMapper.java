@@ -12,6 +12,8 @@ import com.sky.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 @Mapper
 public interface UserMapper {
 
@@ -29,4 +31,11 @@ public interface UserMapper {
      * @param user
      */
     void insert(User user);
+
+    /**
+     * 根据参数动态查询用户数
+     * @param newUserMap
+     * @return
+     */
+    Integer getUserStatic(Map newUserMap);
 }
