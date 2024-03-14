@@ -93,4 +93,10 @@ public interface OrderMapper {
     Double getByMap(Map map);
 
 
+    /**
+     * 根据参数动态返回订单数
+     * @param orderMap
+     * @return
+     */
+    Integer getOrderCount(Map orderMap);
 }
