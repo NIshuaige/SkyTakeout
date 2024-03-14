@@ -123,7 +123,7 @@ public class ReportServiceImpl implements ReportService {
 
             //查询总共的用户
             Map totalUserMap = new HashMap<>();
-            totalUserMap.put("time",beginTime);
+            totalUserMap.put("endTime",endTime);
             Integer totalUsers =userMapper.getUserStatic(totalUserMap);
             totalUserList.add(totalUsers);
 
