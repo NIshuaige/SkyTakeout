@@ -106,4 +106,11 @@ public interface OrderMapper {
      * @param map
      */
     List<GoodsSalesDTO> getTOP10(Map map);
+
+    /**
+     *
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 }
