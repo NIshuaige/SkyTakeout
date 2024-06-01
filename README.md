@@ -5,15 +5,15 @@
 
 #### 软件架构
 + 前端：  
-      -vue 
-      +elementUI
+      - vue   
+      + elementUI  
 + 后端:  
-      +springboot
-      +mybatis
-      +mybatisplus
-+ 中间件:  
-      +nginx
-      +redis
+      + springboot  
+      + mybatis
+      + mybatisplus
++ 中间件:    
+      + nginx  
+      + redis  
 
 
 #### 使用说明
