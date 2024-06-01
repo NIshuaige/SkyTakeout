@@ -4,11 +4,16 @@
 苍穹外卖的远程仓库
 
 #### 软件架构
-前端：vue 
-      nginx
-后端：springboot
-      mybatis
-      mybatisplus
+前端：
+      -(+*)vue 
+      -(+*)elementUI
+后端：
+      -(+*)springboot
+      -(+*)mybatis
+      -(+*)mybatisplus
+中间件：
+      -(+*)nginx
+      -(+*)redis
 
 
 #### 使用说明
